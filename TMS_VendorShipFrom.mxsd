@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation=".wmqi21.mxsd"/>
+    <xsd:complexType name="tXML_attrs">
+    <xsd:annotation>
+      <xsd:documentation source="WMQI_DOCUMENTATION">tXML_attrs.\s</xsd:documentation>
+    </xsd:annotation>
+    <xsd:group ref="tXML_attrs"/>
+  </xsd:complexType>
+  <xsd:group name="tXML_attrs">
+    <xsd:annotation>
+      <xsd:documentation source="WMQI_DOCUMENTATION">tXML_attrs.\s</xsd:documentation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRGlobalGroup composition="unorderedSet" content="open"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element default="http://www.w3.org/2001/XMLSchema-instance" maxOccurs="1" minOccurs="0" name="xmlns_xsi" nillable="false" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation source="WMQI_DOCUMENTATION">xmlns:xsi.\s</xsd:documentation>
+          <xsd:appinfo source="WMQI_APPINFO">
+            <xmlInclRep messageSetDefaultRep="XML" render="XMLAttribute" xmlName="xmlns:xsi"/>
+          </xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element default="http://www.ibm.com/temp Temp.xsd" maxOccurs="1" minOccurs="0" name="xsi_schemaLocation" nillable="false" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation source="WMQI_DOCUMENTATION">xsi:schemaLocation.\s</xsd:documentation>
+          <xsd:appinfo source="WMQI_APPINFO">
+            <xmlInclRep messageSetDefaultRep="XML" render="XMLAttribute" xmlName="xsi:schemaLocation"/>
+          </xsd:appinfo>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:complexType name="tXML_ANON">
+    <xsd:annotation>
+      <xsd:documentation source="WMQI_DOCUMENTATION">tXML_ANON.\s</xsd:documentation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRComplexType content="open"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:group maxOccurs="1" minOccurs="1" ref="tXML_attrs"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Header">
+        <xsd:annotation>
+          <xsd:documentation source="WMQI_DOCUMENTATION">Header.\s</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation source="WMQI_DOCUMENTATION">Header_ANON.\s</xsd:documentation>
+            <xsd:appinfo source="WMQI_APPINFO">
+              <MRComplexType content="open"/>
+            </xsd:appinfo>
+          </xsd:annotation>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Source" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Source.\s</xsd:documentation>
+              </xsd:annotation>
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:maxLength value="10"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Action_Type" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Action_Type.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Sequence_Number" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Sequence_Number.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Batch_ID" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Batch_ID.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Reference_ID" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Reference_ID.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="User_ID" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">User_ID.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Password" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Password.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Message_Type" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Message_Type.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Company_ID" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Company_ID.\s</xsd:documentation>
+              </xsd:annotation>
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:int">
+                  <xsd:maxInclusive value="99999999"/>
+                  <xsd:minInclusive value="-99999999"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Msg_Locale" nillable="false" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">Msg_Locale.\s</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Message">
+        <xsd:annotation>
+          <xsd:documentation source="WMQI_DOCUMENTATION">Message.\s</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:annotation>
+            <xsd:documentation source="WMQI_DOCUMENTATION">Message_ANON.\s</xsd:documentation>
+            <xsd:appinfo source="WMQI_APPINFO">
+              <MRComplexType content="open"/>
+            </xsd:appinfo>
+          </xsd:annotation>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="FACILITY">
+              <xsd:annotation>
+                <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY.\s</xsd:documentation>
+              </xsd:annotation>
+              <xsd:complexType>
+                <xsd:annotation>
+                  <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_ANON.\s</xsd:documentation>
+                  <xsd:appinfo source="WMQI_APPINFO">
+                    <MRComplexType content="open"/>
+                  </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="SHIPPER_ID" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">SHIPPER_ID.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:int">
+                        <xsd:maxInclusive value="99999999"/>
+                        <xsd:minInclusive value="-99999999"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="PRIMARY_FACILITY_ALIAS_NAME" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">PRIMARY_FACILITY_ALIAS_NAME.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="PRIMARY_FACILITY_ALIAS_ID" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">PRIMARY_FACILITY_ALIAS_ID.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="16"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="3" minOccurs="0" name="FACILITY_TYPE" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_TYPE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="DSG_POOLPOINT_CARRIER" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">DSG_POOLPOINT_CARRIER.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="10"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="DSG_POOLPOINT_MODE" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">DSG_POOLPOINT_MODE.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="DSG_POOLPOINT_SERVICE_LEVEL" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">DSG_POOLPOINT_SERVICE_LEVEL.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="POOLPOINT_PROCESSING_TIME" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">POOLPOINT_PROCESSING_TIME.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:decimal">
+                        <xsd:maxInclusive value="999999.99"/>
+                        <xsd:minInclusive value="-999999.99"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="TRACK_POOLPOINT_SHIPMENTS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">TRACK_POOLPOINT_SHIPMENTS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="CROSS_DOCK_HANDLING_COST" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">CROSS_DOCK_HANDLING_COST.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="CROSS_DOCK_HANDLING_COST_CURRENCY" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">CROSS_DOCK_HANDLING_COST_CURRENCY.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="CROSS_DOCK_HANDLING_COST_SIZE_UOM" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">CROSS_DOCK_HANDLING_COST_SIZE_UOM.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="ADDRESS" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">ADDRESS.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="255"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="CITY" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">CITY.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="STATE_PROV" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">STATE_PROV.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="POSTAL_CODE" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">POSTAL_CODE.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="COUNTY" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">COUNTY.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="40"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="COUNTRY_CODE" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">COUNTRY_CODE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="2"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="IS_DROP" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">IS_DROP.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="IS_HOOK" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">IS_HOOK.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="HANDLER" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">HANDLER.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="BUSINESS_PARTNER_ID" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">BUSINESS_PARTNER_ID.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="8"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="IS_SHIP_APPT_REQD" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">IS_SHIP_APPT_REQD.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="IS_RCV_APPT_REQD" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">IS_RCV_APPT_REQD.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="MUST_BE_FIRST_STOP" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">MUST_BE_FIRST_STOP.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="TRACK_ONTIME_INDICATOR" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">TRACK_ONTIME_INDICATOR.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="ONTIME_PERF_METHOD" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">ONTIME_PERF_METHOD.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="8"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_FACTOR_MODE" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_FACTOR_MODE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="4"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_FACTOR_SIZE_UOM" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_FACTOR_SIZE_UOM.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="8"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_FACTOR_SIZE_VALUE" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_FACTOR_SIZE_VALUE.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_UNLOAD_MODE" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_UNLOAD_MODE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="4"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_UNLOAD_SIZE_UOM" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_UNLOAD_SIZE_UOM.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="8"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_RATE" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_RATE.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="UNLOAD_RATE" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">UNLOAD_RATE.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="ALLOW_OVERLAPPING_APPS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">ALLOW_OVERLAPPING_APPS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="EARLY_POINT_TOLERANCE_HOURS" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">EARLY_POINT_TOLERANCE_HOURS.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:int">
+                        <xsd:maxInclusive value="99999999"/>
+                        <xsd:minInclusive value="-99999999"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="EARLY_POINT_TOLERANCE_MINS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">EARLY_POINT_TOLERANCE_MINS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LATE_POINT_TOLERANCE_HOURS" nillable="false">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LATE_POINT_TOLERANCE_HOURS.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                      <xsd:restriction base="xsd:int">
+                        <xsd:maxInclusive value="99999999"/>
+                        <xsd:minInclusive value="-99999999"/>
+                      </xsd:restriction>
+                    </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LATE_POINT_TOLERANCE_MINS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LATE_POINT_TOLERANCE_MINS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="EARLY_WINDOW_TOLERANCE_HOURS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">EARLY_WINDOW_TOLERANCE_HOURS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="EARLY_WINDOW_TOLERANCE_MINS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">EARLY_WINDOW_TOLERANCE_MINS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LATE_WINDOW_TOLERANCE_HOURS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LATE_WINDOW_TOLERANCE_HOURS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="LATE_WINDOW_TOLERANCE_MINS" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">LATE_WINDOW_TOLERANCE_MINS.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="ALIAS">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">ALIAS.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">ALIAS_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="ALIAS_ID" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">ALIAS_ID.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="16"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="ALIAS_NAME" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">ALIAS_NAME.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="AUTO_CREATE_RULE">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">AUTO_CREATE_RULE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">AUTO_CREATE_RULE_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SIZE_UOM" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SIZE_UOM.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="8"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MIN_VALUE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MIN_VALUE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                              <xsd:maxInclusive value="99999999999.99"/>
+                              <xsd:minInclusive value="-99999999999.99"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MAX_VALUE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MAX_VALUE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                              <xsd:maxInclusive value="99999999999.99"/>
+                              <xsd:minInclusive value="-99999999999.99"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DATE_TYPE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DATE_TYPE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DAYS_PRIOR_TO" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DAYS_PRIOR_TO.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:int">
+                              <xsd:maxInclusive value="9999"/>
+                              <xsd:minInclusive value="-9999"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DSG_MODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DSG_MODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DSG_SERVICE_LEVEL" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DSG_SERVICE_LEVEL.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="8"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DSG_EQUIPMENT_CODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DSG_EQUIPMENT_CODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="8"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DSG_CARRIER_CODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DSG_CARRIER_CODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="10"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="OVERRIDE_MODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">OVERRIDE_MODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="FACILITY_CONTACT">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_CONTACT.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_CONTACT_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="FIRST_NAME" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">FIRST_NAME.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MIDDLE_NAME" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MIDDLE_NAME.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SURNAME" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SURNAME.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="CONTACT_PREFIX" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">CONTACT_PREFIX.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="CONTACT_TITLE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">CONTACT_TITLE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="TELEPHONE_NUMBER" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">TELEPHONE_NUMBER.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MOBILE_PHONE_NUMBER" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MOBILE_PHONE_NUMBER.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="PAGER_NUMBER" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">PAGER_NUMBER.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="FAX_NUMBER" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">FAX_NUMBER.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="32"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="EMAIL_ADDRESS" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">EMAIL_ADDRESS.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="100"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="ADDRESS" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">ADDRESS.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="500"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="CITY" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">CITY.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="STATE_PROV" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">STATE_PROV.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="POSTAL_CODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">POSTAL_CODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="10"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="COUNTY" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">COUNTY.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="COUNTRY_CODE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">COUNTRY_CODE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="2"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="COMMENTS" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">COMMENTS.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1000"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="FACILITY_NOTE">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_NOTE.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">FACILITY_NOTE_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="NOTE" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">NOTE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1000"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="IS_INTERNAL_ONLY" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">IS_INTERNAL_ONLY.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="IS_REFERENCE" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">IS_REFERENCE.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_ID" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_ID.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="DOCK">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">DOCK.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_ID" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_ID.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="8"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_NAME" nillable="false">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_NAME.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="100"/>
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="DOCK_HOURS">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_HOURS.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:complexType>
+                            <xsd:annotation>
+                              <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_HOURS_ANON.\s</xsd:documentation>
+                              <xsd:appinfo source="WMQI_APPINFO">
+                                <MRComplexType content="open"/>
+                              </xsd:appinfo>
+                            </xsd:annotation>
+                            <xsd:sequence>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_HOURS_ID" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_HOURS_ID.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="START_DAYOFWEEK" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">START_DAYOFWEEK.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="START_TIME" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">START_TIME.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="END_DAYOFWEEK" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">END_DAYOFWEEK.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="END_TIME" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">END_TIME.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_ACTION_TYPE" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_ACTION_TYPE.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:string">
+                                    <xsd:maxLength value="50"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="ALLOWED_NUM_APPTS" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">ALLOWED_NUM_APPTS.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:int">
+                                    <xsd:maxInclusive value="9999"/>
+                                    <xsd:minInclusive value="-9999"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="ENFORCE_END_TIME" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">ENFORCE_END_TIME.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="USE_FOR_TF" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">USE_FOR_TF.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="USE_FOR_DS" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">USE_FOR_DS.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="DOCK_RATE">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_RATE.\s</xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:complexType>
+                            <xsd:annotation>
+                              <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_RATE_ANON.\s</xsd:documentation>
+                              <xsd:appinfo source="WMQI_APPINFO">
+                                <MRComplexType content="open"/>
+                              </xsd:appinfo>
+                            </xsd:annotation>
+                            <xsd:sequence>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="DOCK_RATE_TYPE" nillable="false" type="xsd:string">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">DOCK_RATE_TYPE.\s</xsd:documentation>
+                                </xsd:annotation>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="MODE" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">MODE.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:string">
+                                    <xsd:maxLength value="8"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="SIZE_UOM" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">SIZE_UOM.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:string">
+                                    <xsd:maxLength value="8"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="LOAD_RATE" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">LOAD_RATE.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:decimal">
+                                    <xsd:maxInclusive value="99999999999.99"/>
+                                    <xsd:minInclusive value="-99999999999.99"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                              <xsd:element maxOccurs="1" minOccurs="0" name="UNLOAD_RATE" nillable="false">
+                                <xsd:annotation>
+                                  <xsd:documentation source="WMQI_DOCUMENTATION">UNLOAD_RATE.\s</xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:simpleType>
+                                  <xsd:restriction base="xsd:decimal">
+                                    <xsd:maxInclusive value="99999999999.99"/>
+                                    <xsd:minInclusive value="-99999999999.99"/>
+                                  </xsd:restriction>
+                                </xsd:simpleType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="CROSS_DOCK_SORT_WINDOWS">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">CROSS_DOCK_SORT_WINDOWS.\s</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                      <xsd:annotation>
+                        <xsd:documentation source="WMQI_DOCUMENTATION">CROSS_DOCK_SORT_WINDOWS_ANON.\s</xsd:documentation>
+                        <xsd:appinfo source="WMQI_APPINFO">
+                          <MRComplexType content="open"/>
+                        </xsd:appinfo>
+                      </xsd:annotation>
+                      <xsd:sequence>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="DESTINATION_FACILITY" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">DESTINATION_FACILITY.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SUNDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SUNDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SUNDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SUNDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MONDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MONDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="MONDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">MONDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="TUESDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">TUESDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="TUESDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">TUESDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="WEDNESDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">WEDNESDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="WEDNESDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">WEDNESDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="THURSDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">THURSDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="THURSDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">THURSDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="FRIDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">FRIDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="FRIDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">FRIDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SATURDAY_START" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SATURDAY_START.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="1" minOccurs="0" name="SATURDAY_END" nillable="false" type="xsd:string">
+                          <xsd:annotation>
+                            <xsd:documentation source="WMQI_DOCUMENTATION">SATURDAY_END.\s</xsd:documentation>
+                          </xsd:annotation>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element maxOccurs="1" minOccurs="0" name="IS_DOCK_SCHED_FAC" nillable="false" type="xsd:string">
+                    <xsd:annotation>
+                      <xsd:documentation source="WMQI_DOCUMENTATION">IS_DOCK_SCHED_FAC.\s</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="tXML" type="tXML_ANON">
+    <xsd:annotation>
+      <xsd:documentation source="WMQI_DOCUMENTATION">tXML.\s</xsd:documentation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/tXML;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>
