@@ -1,0 +1,371 @@
+CREATE COMPUTE MODULE VendorShipFrom_Initialization
+CREATE FUNCTION main() RETURNS BOOLEAN BEGIN
+SET OutputRoot = InputRoot;
+-- Enter SQL below this line.  SQL above this line might be regenerated, causing any modifications to be lost.
+
+-- Setting Environment variables (Source Queue Manager, Source Queue Name and Message ID) to be used in Exception sub flow
+
+SET Environment.Variables.ReplyToQMgr = TRIM(InputRoot.MQMD.ReplyToQMgr);
+
+SET Environment.Variables.SourceQueue = TRIM(InputRoot.MQMD.SourceQueue);
+
+SET Environment.Variables.MsgId = InputRoot.MQMD.MsgId; 
+
+/* This is the Initialization Node. In this Node...
+
+1. Message Flow Name is set for the purpose of identifying the flow in case of any error
+2. key Fields are initialized for the purpose of identifying the message in case of any error
+
+*/
+
+-- Initializing Variable for MessageFlowName
+
+SET Environment.Variables.MessageFlowName = 'VendorShipFrom';
+
+-- Initializing the Key Fields tree to be shown in the Error Message
+
+SET Environment.Variables.XMLKeyFields.Fac_alias_id = "InputBody"."VendorShipFrom_Repeat"[1]."Fac_alias_id";
+SET Environment.Variables.XMLKeyFields.PostalCode = "InputBody"."VendorShipFrom_Repeat"[1]."Postal_Code_2"; 
+
+
+RETURN true;
+END;
+
+END MODULE;
+CREATE COMPUTE MODULE VendorShipFrom_TransformFromTDStoXML
+CREATE FUNCTION main() RETURNS BOOLEAN BEGIN
+SET OutputRoot.Properties.MessageSet = 'DUE9TK81RK001';
+SET OutputRoot.Properties.MessageType = 'tXML';
+-- Enter SQL below this line.  SQL above this line might be regenerated, causing any modifications to be lost.
+
+/******* START OF CHANGE LOG. USE THE TICKET # FOR LOCATING THE PLACE OF CODE CHANGE **************
+	1. CHANGES MADE FOR TICKET #221777 HD ON 08-10-2006 BY INFOSYS.	
+	2. CHANGES MADE FOR TICKET #245776 HD ON 09-25-2006 BY INFOSYS.	
+	3. CHANGES MADE FOR PROJECT-CRQ18334 - Changes to the TMS message structure for TMS-2010ON 07-30-2010 BY INFOSYS
+	4. CHANGES MADE FOR PROJECT-CRQ18334 - Addition of new fields , which are to be defaulted.
+	5. CHANGES MADE FOR PROJECT-CRQ18334 - Updated the field mapping.
+	6. CHANGES MADE FOR PROJECT-CRQ26815 - TMS 2011 Upgrade.
+******* END OF CHANGE LOG. USE THE TICKET # FOR LOCATING THE PLACE OF CODE CHANGE **************/
+
+DECLARE iVendor_Count INTEGER;
+DECLARE iCount INTEGER;
+
+SET iVendor_Count = CARDINALITY("InputBody"."VendorShipFrom_Repeat"[]);
+SET iCount = 1;
+
+WHILE (iCount <= iVendor_Count) DO
+	
+	SET OutputRoot.Properties.MessageDomain = 'MRM';
+	SET OutputRoot.Properties.MessageSet = 'DUE9TK81RK001';
+	SET OutputRoot.Properties.MessageType = 'tXML';
+	SET OutputRoot.Properties.MessageFormat = 'XML';
+	
+	SET "OutputRoot"."MQMD"."Format" = 'MQSTR';
+	SET "OutputRoot"."MQMD"."MsgId" = Environment.Variables.MsgId;
+    SET OutputRoot.MQMD.Persistence = MQPER_PERSISTENT;
+	/*  This is Message Transformation Node. In this Node...
+	1. Input Message is mapped to the Output Message.
+	2. Default values are populated in the Output Message.
+	*/
+    --New Procedure to Initialize the facility Schema
+    CALL InitializeFacility();
+    
+	DECLARE iCounter Integer;
+	DECLARE cDayofWeek CHAR;
+
+	SET "OutputRoot"."MRM"."Header"."Source" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Source";
+	SET "OutputRoot"."MRM"."Header"."Action_Type" = 'Create';
+	
+	---------------------------------------Modified 30Jul 2010 ----------------------------------
+	SET "OutputRoot"."MRM"."Header"."Message_Type" = 'Facility';
+	
+ 	SET "OutputRoot"."MRM"."Header"."Company_ID" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Company_id";
+	SET "OutputRoot"."MRM"."Header"."Msg_Locale" = 'English (United States)';
+	SET "OutputRoot"."MRM"."Message"."Facility"."BusinessUnit" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Shipper_id_Int";
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."PrimaryFacilityAliasId" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Fac_alias_id";
+    SET "OutputRoot"."MRM"."Message"."Facility"."PrimaryFacilityAliasName" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Fac_alias_nam";
+
+/****************************************
+Modification Log:
+The FACILITY_TYPE is defaulted with "Standard" if the Fac_Type is Spaces.
+Modified By: Kishore 
+Date: June 08, 2004
+****************************************/
+-- Defaulting the value of FacilityType to Standard as per TMS 2010
+	--IF "InputBody"."VendorShipFrom_Repeat"[iCount]."Fac_type" = '' THEN
+	     SET "OutputRoot"."MRM"."Message"."Facility"."FacilityType" = 'Standard';
+	--ELSE
+	     --SET "OutputRoot"."MRM"."Message"."Facility"."FacilityType" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Fac_type";
+	--END IF;
+	
+	/****************************************
+	Modification Log:
+	Changes for the ticket 221777.  The ADDRESS field is set to first 30 bytes 
+	Modified By: Jashobant
+	Date: Aug 10, 2006
+	****************************************/
+	SET "OutputRoot"."MRM"."Message"."Facility"."Address" = SUBSTRING ("InputBody"."VendorShipFrom_Repeat"[iCount]."Address_1_255" FROM 1 FOR 30 );
+	SET "OutputRoot"."MRM"."Message"."Facility"."City" = "InputBody"."VendorShipFrom_Repeat"[iCount]."City_1";
+	SET "OutputRoot"."MRM"."Message"."Facility"."StateProv" = "InputBody"."VendorShipFrom_Repeat"[iCount]."State_Prov_1";
+	
+	/********************************************************************************
+	Modification Log:
+	Changes for the ticket HD245776. Need to send only the first 5 bytes of the A6ZIP 
+        if the Country code is 'US'. 
+	Modified By: Selvaraj S
+	Date: Sep 25, 2006
+	*********************************************************************************/
+	IF "InputBody"."VendorShipFrom_Repeat"[iCount]."Country_Code"='US' THEN
+		SET "OutputRoot"."MRM"."Message"."Facility"."PostalCode" =SUBSTRING("InputBody"."VendorShipFrom_Repeat"[iCount]."Postal_Code_1" FROM 1 FOR 5);
+	ELSE
+		SET "OutputRoot"."MRM"."Message"."Facility"."PostalCode" ="InputBody"."VendorShipFrom_Repeat"[iCount]."Postal_Code_1";
+	END IF;
+	/* End of modification for HD245776 */
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."CountryCode" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Country_Code";
+	
+	----------------------------------Modified Jul 30 2010------------------------------
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsDrop" = 'false' ;
+    SET "OutputRoot"."MRM"."Message"."Facility"."IsHook" = 'false';
+    SET "OutputRoot"."MRM"."Message"."Facility"."Handler" = 'Stop Owner';
+    SET "OutputRoot"."MRM"."Message"."Facility"."IsShipApptReqd" = 'true';
+    SET "OutputRoot"."MRM"."Message"."Facility"."IsRcvApptReqd" = 'true';
+    SET "OutputRoot"."MRM"."Message"."Facility"."MustBeFirstStopOnLoad" = 'false';
+    SET "OutputRoot"."MRM"."Message"."Facility"."TrackOntimeIndicator" = 'true';
+    SET "OutputRoot"."MRM"."Message"."Facility"."OntimePerfMethod" = 'Window';
+    SET "OutputRoot"."MRM"."Message"."Facility"."AllowOverlappingApps" = 'true';
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceHours" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceMins" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceHours" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceMins" = '0';
+	--------------------------------------------------------------------------------------
+
+	if "InputBody"."VendorShipFrom_Repeat"[iCount]."Action_type" = 'Create' then
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsDrop" = 'false';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsHook" = 'false';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Handler" = 'Stop Owner';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsShipApptReqd" = 'true';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsRcvApptReqd" = 'true';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."MustBeFirstStopOnLoad" = 'false';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."TrackOntimeIndicator" = 'true';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."OntimePerfMethod" = 'Point';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorMode" = 'TL';
+/****************************************
+Modification Log:
+The LOAD_FACTOR_SIZE_UOM and LOAD_UNLOAD_SIZE_UOM are defaulted with Lbs.
+Modified By: Kishore 
+Date: June 08, 2004
+****************************************/
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorSizeUom" = 'Lbs';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorSizeValue" = '1.0';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."FacilityLoadUnloadRateAttributes"."LoadUnloadMode"= 'TL';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadUnloadUom" = 'Lbs';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadRate" = '10000';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."UnloadRate" = '10000';
+	  
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_UNLOAD_MODE" = 'TL';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_UNLOAD_SIZE_UOM" = 'Lbs';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_RATE" = '25000';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."UNLOAD_RATE" = '25000';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."AllowOverlappingApps" = '1';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceHours" = '1';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceMins" = '0';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceHours" = '1';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceMins" = '0';
+	else
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsDrop" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsHook" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Handler" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsShipApptReqd" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."IsRcvApptReqd" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."MustBeFirstStopOnLoad" = 'false';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."TrackOntimeIndicator" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."OntimePerfMethod" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorMode" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorSizeUom" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LoadFactorSizeValue" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."FacilityLoadUnloadRateAttributes"."LoadUnloadMode"= '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadUnloadUom" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadRate" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."UnloadRate" = '';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_UNLOAD_MODE" = '';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_UNLOAD_SIZE_UOM" = '';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."LOAD_RATE" = '';
+	  --SET "OutputRoot"."MRM"."Message"."Facility"."UNLOAD_RATE" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."AllowOverlappingApps" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceHours" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceMins" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceHours" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceMins" = '';
+	end if;
+
+	/*******************************************************************************************************************************
+	START OF CODE MODIFICATION BY YUVARAJ ON 12TH JULY 2004 FOR DEFECT # 3287
+	CHANGED THE MAPPING RULE FOR THE DESTINATION FIELD ALIAS_ID. THIS FIELD IS TO BE DEFAULTED WITH 'NACN' IF THE SOURCE FIELD
+	DOESN'T HAVE ANY VALUE.
+	*******************************************************************************************************************************/
+	IF ("InputBody"."VendorShipFrom_Repeat"[iCount]."Alias_id" = '' OR "InputBody"."VendorShipFrom_Repeat"[iCount]."Alias_id" IS NULL) THEN
+		--SET "OutputRoot"."MRM"."Message"."Facility"."Alias"."AliasId" = 'NANC';
+		SET "OutputRoot"."MRM"."Message"."Facility"."ReferenceField1" = 'NANC';
+	ELSE
+		--SET "OutputRoot"."MRM"."Message"."Facility"."Alias"."AliasId" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Alias_id";
+		SET "OutputRoot"."MRM"."Message"."Facility"."ReferenceField1" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Alias_id";
+	END IF;
+	/*******************************************************************************************************************************
+	END OF CODE MODIFICATION BY YUVARAJ ON 12TH JULY 2004 FOR DEFECT # 3287
+	*******************************************************************************************************************************/
+    
+	--SET "OutputRoot"."MRM"."Message"."Facility"."Alias"."AliasName" = "InputBody"."VendorShipFrom_Repeat"[iCount]."Alias_name";
+	
+	--------------------------------TMS2010 30Jul2010 ----------------------
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."FirstName" = 'Supplier';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."Surname" = 'Contact';
+	--------------------------------------------------------------------------	
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."Address" = '';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."City" = '';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."StateProv" = '';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."PostalCode" = '';
+    SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."CountryCode" = '';
+    
+    
+	if "InputBody"."VendorShipFrom_Repeat"[iCount]."Action_type" = 'Create' then
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockId" = '1';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockName" = 'DOCK1';
+	  SET iCounter = 1;
+	  while iCounter <= 5 do 
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."DockHoursId" = CAST ((iCounter * 100) AS CHAR);
+	    CASE iCounter
+	    WHEN  1 THEN
+	    	SET cDayofWeek = 'Monday';
+	    WHEN  2 THEN
+	    	SET cDayofWeek = 'Tuesday';
+	    WHEN  3 THEN
+	    	SET cDayofWeek = 'Wednesday';
+	    WHEN  4 THEN
+	    	SET cDayofWeek = 'Thursday';
+	    WHEN  5 THEN
+	    	SET cDayofWeek = 'Friday';
+	    END CASE;
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."StartDayofWeek" = cDayofWeek;
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."StartTime" = '08:00';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."EndDayofWeek" = cDayofWeek;
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."EndTime" = '17:00';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."DockActionType" = 'Shipping/Receiving';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."UseForTf" = '1';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."UseForDs" = '1';
+	    SET iCounter = iCounter+1;
+	  end while;
+	else
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockId" = '';
+	  SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockName" = '';
+	  SET iCounter = 1;
+	  while iCounter <= 5 do 
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."DockHoursId" = '';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."StartDayofWeek" = '';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."StartTime" = '';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."EndDayofWeek" = '';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."EndTime" = '';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."DockActionType" = '';
+        SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."UseForTf" = '1';
+	    SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"[iCounter]."UseForDs" = '1';
+	    SET iCounter = iCounter+1;
+	  end while;
+	end if;
+	PROPAGATE;
+	SET iCount = iCount + 1;
+	
+END WHILE;
+RETURN FALSE;
+END;
+
+CREATE PROCEDURE InitializeFacility()
+BEGIN
+	
+	SET OutputRoot.MRM.Header.Source = ' ';
+	SET OutputRoot.MRM.Header.Action_Type = ' '; 
+	SET OutputRoot.MRM.Header.Message_Type = ' ';
+	SET OutputRoot.MRM.Header.Company_ID = ' ';
+	SET OutputRoot.MRM.Header.Msg_Locale = ' ';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."BusinessUnit" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."PrimaryFacilityAliasId" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."PrimaryFacilityAliasName" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityType" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Address" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."City" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."StateProv" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."PostalCode" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."CountryCode" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsDrop" = 'false';
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsHook" = 'false';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Handler" = 'Stop Owner';
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsShipApptReqd" = 'true';
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsRcvApptReqd" = 'true';
+	SET "OutputRoot"."MRM"."Message"."Facility"."TrackOntimeIndicator" = 'true';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."OntimePerfMethod" = 'Point';
+		
+	SET "OutputRoot"."MRM"."Message"."Facility"."ReferenceField1" = ' ';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."FixedLoadingTimeHours" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FixedLoadingTimeMins" = '30';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FixedUnloadingTimeHours" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FixedUnloadingTimeMins" = '30';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."AllowOverlappingApps" = '1';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyPointToleranceHours" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyPointToleranceMins" = '30';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LatePointToleranceHours" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LatePointToleranceMins" = '30';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceHours" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."EarlyWindowToleranceMins" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceHours" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."LateWindowToleranceMins" = '0';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."IsDockSchedFac" = '0';
+	SET "OutputRoot"."MRM"."Message"."Facility"."InboundRegion" = 'US&C';
+	SET "OutputRoot"."MRM"."Message"."Facility"."OutboundRegion" = 'US&C';
+	SET "OutputRoot"."MRM"."Message"."Facility"."MustBeFirstStopOnLoad" = '0';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."FirstName" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."Surname" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."InheritFacilityAddress" = '1';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."Address" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."City" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."StateProv" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."PostalCode" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityContact"."CountryCode" = ' ';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockId" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockName" = 'DOCK1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."HandlingAllowedDuringClosedHours" = '0';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."DockHoursId" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."StartDayofWeek" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."StartTime" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."EndDayofWeek" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."EndTime" = ' ';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."DockActionType" = ' ';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."UseForTf" = '1';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockHours"."UseForDs" = '1';
+	
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockRate"."DockRateType" = 'Rate/UOM';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockRate"."SizeUomCode" = 'Lbs';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockRate"."LoadRate" = '10000';
+	SET "OutputRoot"."MRM"."Message"."Facility"."Dock"."DockRate"."UnloadRate" = '10000';
+
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadUnloadUom" = 'Lbs';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."LoadRate" = '1000';
+	SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."UnloadRate" = '1000';
+	--SET "OutputRoot"."MRM"."Message"."Facility"."FacilityLoadUnloadRate"."FacilityLoadUnloadRateAttributes"."LoadUnloadMode"= '';
+	
+	
+END;
+
+
+END MODULE;

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ExceptionSubFlow.msgflow="ExceptionSubFlow.msgflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="VendorShipFrom.msgflow"
+    nsPrefix="VendorShipFrom.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eAnnotations>
+      <details key="xmi:uuid" value="4d388786-fb00-0000-0080-ba28e7af8e36"/>
+    </eAnnotations>
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="VendorShipFrom" bundleName="VendorShipFrom" pluginId="VendorShipFrom"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/VendorShipFrom/icons/full/obj16/VendorShipFrom.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/VendorShipFrom/icons/full/obj30/VendorShipFrom.gif"/>
+    <shortDescription xmi:type="utility:ConstantString" string="Release Version - 1.7"/>
+    <longDescription xmi:type="utility:ConstantString" string="Release Version - 1.6, Author - Infosys, Date - 14 Sep 2010, Desc - CRQ18334 -Updated the field mapping****Release Version - 1.0, Author - Infosys, Date - 19 Oct 2004, Desc - Initial Release to Production ****Release Version - 1.1, Author - Infosys, Date - 10 Aug 2006, Desc - Changes for ticket 221777 , Updated the field Address in the Output based on the new Rule ****Release Version - 1.2, Author - Infosys, Date - 21 Aug 2006, Desc -Set Persistence in the MQMD header ****Release Version - 1.3, Author - Infosys, Date - 25 Sep 2005, Desc - HD245776, Need to send only the first 5 bytes of the A6ZIP if the couuntrycode is 'US' to TMS****Release Version - 1.4, Author - Infosys, Date - 03 Aug 2010, Desc - CRQ18334 -Changes to the TMS Message Structure for TMS-2010 project ****Release Version - 1.5, Author - Infosys, Date - 13 Sep 2010, Desc - CRQ18334 -Addition of fields on facilty schema ****Release Version - 1.7, Author - Infosys, Date - 12 Oct 2011, Desc - CRQ26815 - TMS 2011 Upgrade**** Release Version - 1.8 Author - Infosys, Date -  31 DEC 2014, Desc - Charm 6*4321 Changed the TMS Destination queue to C000.TMS.INBOUNDFACILITY.ALIAS****"/>
+    <version xmi:type="utility:ConstantString" string="1.7"/>
+    <composition>
+      <nodes xmi:type="ExceptionSubFlow.msgflow:FCMComposite_1" xmi:id="FCMComposite_1_1" location="680,68">
+        <translation xmi:type="utility:TranslatableString" key="HandleException" bundleName="VendorShipFrom" pluginId="VendorShipFrom"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="392,102" computeExpression="esql://routine/#VendorShipFrom_Initialization.Main" computeMode="all" validateMaster="contentAndValue">
+        <translation xmi:type="utility:TranslatableString" key="Initialization" bundleName="VendorShipFrom" pluginId="VendorShipFrom"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Computte Node to do the Required Transformations"/>
+        <longDescription xmi:type="utility:ConstantString" string="This is the Compute Node which is used to Map the Input Data Elements to corresponding Output Fields and also to default some of the Output Fields as per the Requirement."/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="697,238" queueName="C000.TMS.INBOUNDFACILITY.ALIAS">
+        <translation xmi:type="utility:ConstantString" string="C000.TMS.INBOUNDFACILITY.ALIAS"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Output Node to send the Message to the Output Queue"/>
+        <longDescription xmi:type="utility:ConstantString" string="This is the Output Node used to send the message to the Output TMS Queue, C000.TMS.INBOUNDFACILITY."/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="80,84" queueName="C000.EAI.VENDORSHIPFROM" messageDomainProperty="MRM" messageSetProperty="DUE9TK81L6001" messageTypeProperty="VendorShipFrom" messageFormatProperty="TDS" validateMaster="contentAndValue">
+        <translation xmi:type="utility:TranslatableString" key="C000.EAI.VENDORSHIPFROM" bundleName="VendorShipFrom" pluginId="VendorShipFrom"/>
+        <shortDescription xmi:type="utility:ConstantString" string="Input Node to Fetch the Message from Input Queue."/>
+        <longDescription xmi:type="utility:ConstantString" string="This Node is used to receive the Incoming Message sent by AS240a SUS through the Input Queue C000.EAI.VENDORSHIPFROM."/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="510,187" computeExpression="esql://routine/#VendorShipFrom_TransformFromTDStoXML.Main" computeMode="all" validateMaster="contentAndValue">
+        <translation xmi:type="utility:TranslatableString" key="TransformFromTDStoXML" bundleName="VendorShipFrom" pluginId="VendorShipFrom"/>
+        <shortDescription xmi:type="utility:ConstantString" string="This is the Compute Node for Transformation."/>
+        <longDescription xmi:type="utility:ConstantString" string="This is the Compute Node which does the Transformation for this Interface MF-20."/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
