@@ -6,7 +6,7 @@ node{
 
     stage('BuildBar')
 
-        bat '"C:\\Program Files (x86)\\IBM\\IntegrationToolkit90\\mqsicreatebar.exe" -data "D:\\SYSCO\\ToolkitWorkAreaIIB\\pbis1150\\BARfiles" -b "D:\\SYSCO\\ToolkitWorkAreaIIB\\pbis1150\\BARfiles\\SYSCO_TEST-%BUILD_NUMBER%.bar" -p VendorShipFrom -m VendorShipFrom.msgflow' 
+        bat '"C:\\Program Files (x86)\\IBM\\IntegrationToolkit90\\mqsicreatebar.exe" -data "D:\\SYSCO\\ToolkitWorkAreaIIB\\keerthana\\BARfiles" -b "D:\\SYSCO\\ToolkitWorkAreaIIB\\keerthana\\BARfiles\\SYSCO_TEST-%BUILD_NUMBER%.bar" -p VendorShipFrom -m VendorShipFrom.msgflow' 
 
     stage('DeployBar'){
 
